@@ -4,15 +4,19 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor:'#8FAFFF',
         alignItems: 'center',
-        justifyContent: 'center',
         width: '95%',
-        marginVertical: 20,
+        marginVertical: 10,
         borderRadius: 20,
+        paddingTop: 10,
     },
     badge:{
         backgroundColor: '#A3E1AA',
         color: 'white',
-        alignItems: 'center',
+        position:'absolute',
+        alignSelf: 'flex-start',
+        zIndex: 1,
+        left: 9,
+        top: 10,
     },
     image:{
         width: '95%',
@@ -24,7 +28,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
     },
     finalidade:{
-        fontSize: 20
+        fontSize: 25,
     },
     value:{
         color: '#A9FFAC'
