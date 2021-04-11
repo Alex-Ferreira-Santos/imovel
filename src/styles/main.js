@@ -7,10 +7,11 @@ const styles = StyleSheet.create({
     title:{
         fontSize: 20,
         textAlign: 'center',
-        backgroundColor: '#F0F0F0',
+        backgroundColor: '#08D88D',
+        paddingVertical: 10,
     },
     footer:{
-        backgroundColor: 'gray',
+        backgroundColor: '#DCDCDC',
         padding: 10
     },
     button:{
