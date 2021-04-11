@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
         backgroundColor: '#08D88D',
-        paddingVertical: 10,
+        paddingBottom: 10,
     },
     footer:{
         backgroundColor: '#DCDCDC',
