@@ -37,7 +37,16 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 0,
         height: 46,
-        paddingLeft: 10,
+    },
+    estadoDisabled:{
+        borderColor:'gray',
+        backgroundColor: '#C6C6C6',
+        color: 'gray',
+    },
+    picker:{
+        backgroundColor: '#F0F0F0',
+        width: width/2,
+        color: '#6C94A0',  
     },
     local:{
         flexDirection: 'row',

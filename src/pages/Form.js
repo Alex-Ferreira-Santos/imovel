@@ -4,19 +4,28 @@ import {Root,Text,Form,Picker,Item } from 'native-base';
 import {View} from 'react-native'
 import styles from '../styles/form'
 import states from '../../Estados.json'
+import cities from '../../Cidades.json'
 export default class GeneralExample extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
       buttonAvailable: false,
+      state: '',
+      enablePicker: false,
+      pickerdisabled: styles.estadoDisabled
     }
+  }
+
+  filterCities(id){
+    const cidades = cities.filter( city => city.Estado == id)
+    return cidades
   }
 
   render() {
     return (
       <Root>
-        <ScrollView>
+        <ScrollView style={{backgroundColor:'white'}}>
             <Text style={styles.dados}>Dados</Text>
             <View style={styles.line}/>
             <Form style={styles.form}>
@@ -26,31 +35,35 @@ export default class GeneralExample extends Component {
               </View>
               <View style={styles.local}>
                 <View>
-                  <Text style={styles.label}>Estado</Text>
-                  <Item picker>
-                    <Picker 
-                    style={styles.input}
-                    placeholder="Selecione seu estado"
-                    placeholderStyle={{ color: "#6C94A0" }}
-                    placeholderIconColor="#007aff"
-                  >
-                    <Picker.Item label="Wallet" value="key0" />
-                  </Picker>
-                  </Item>
+                  <Text style={styles.label}>Estado</Text>   
+                  <View style={styles.estado}>         
+                      <Picker 
+                        style={styles.picker}
+                        onValueChange={ value => {
+                          this.setState({state: value});
+                          this.setState({enablePicker: true})
+                          this.setState({pickerdisabled: ''})
+                          this.filterCities(value.id)
+                        }}
+                      >
+                        <Picker.Item label="Selecione um estado" value=""/>
+                        {states.map( state => (
+                          <Picker.Item label={state.Nome} value={{id: state.ID,name: state.Nome}} />
+                        ))}
+                      </Picker>
+                  </View>
                 </View>
                 <View>
-                  <Text style={styles.label}>Cidade</Text>
-                  <Item picker>
-                    <Picker 
-                    style={styles.input}
-                    placeholder="Selecione sua cidade"
-                    placeholderStyle={{ color: "#6C94A0" }}
-                    placeholderIconColor="#007aff"
-                  >
-                    <Picker.Item label="Wallet" value="key0" />
-                  </Picker>
-                  </Item>
-                  
+                  <Text style={styles.label}>Cidade</Text> 
+                  <View style={[styles.estado,this.state.pickerdisabled]}>         
+                      <Picker 
+                        style={[styles.picker,this.state.pickerdisabled]}
+                        enabled={this.state.enablePicker}           
+                      >
+                        <Picker.Item label="Selecione uma cidade" value=""/>
+                        
+                      </Picker>
+                  </View>                
                 </View>
               </View>
               
