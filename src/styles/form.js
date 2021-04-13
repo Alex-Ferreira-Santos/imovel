@@ -43,12 +43,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#C6C6C6',
         color: 'gray',
     },
+    description:{
+        height: 100,
+        paddingBottom: 65
+    },
     picker:{
         backgroundColor: '#F0F0F0',
         width: width/2,
         color: '#6C94A0',  
     },
-    local:{
+    row:{
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '90%',
@@ -56,6 +60,29 @@ const styles = StyleSheet.create({
     form:{
         alignItems: 'center',
         marginTop: 10,
+    },
+    radioLabel:{
+        fontSize: 18
+    },
+    imovel:{
+        right: 20,
+    },
+    takePicture:{
+        backgroundColor:'#39B137',
+        width: '90%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        borderRadius: 20,
+        paddingVertical: 10,
+        marginVertical: 10
+    },
+    buttonText:{
+        fontSize: 20,
+        color:'white'
+    },
+    plus:{
+        
     }
 })
 
