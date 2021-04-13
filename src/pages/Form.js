@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {TextInput,ScrollView,TouchableOpacity} from 'react-native'
+import {TextInput,ScrollView,TouchableOpacity,Image} from 'react-native'
 import {Root,Text,Form,Picker,Radio,ListItem } from 'native-base';
 import {View} from 'react-native'
 import styles from '../styles/form'
@@ -22,12 +22,20 @@ export default class GeneralExample extends Component {
       casaSelected: true,
       apartSelected: false,
       commerceSelected: false,
+      image: [],
     }
   }
 
   filterCities(id){
     const cidades = cities.filter( city => city.Estado == id)
     return cidades
+  }
+
+  pictures(){
+    if(this.state.image.length === 5){
+      return
+    }
+    this.setState({image: [...this.state.image,{id:1,nome:'test.png'}]})
   }
 
   render() {
@@ -145,8 +153,26 @@ export default class GeneralExample extends Component {
             <TouchableOpacity style={styles.takePicture}>
               <Text style={styles.buttonText}>Tirar foto</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.getPicture}>
+            <View>
+                {this.state.image.map(image => (
+                  <View style={styles.images} key={image.id}>
+                    <Image style={styles.image}/>
+                    <View>
+                      <Text>{image.id}</Text>
+                      <Text>{image.nome}</Text>
+                    </View>
+                  </View>
+                ))}
+            </View>
+            {this.state.image.length < 5 && (
+              <TouchableOpacity style={styles.getPicture} onPress={()=>this.pictures()}>
               <Text style={styles.plus}>+</Text>
+              </TouchableOpacity>
+            )}
+            
+            <View style={styles.line}/>
+            <TouchableOpacity style={[styles.takePicture,styles.cadastrar]}>
+              <Text style={{fontSize: 20}}>Cadastrar</Text>
             </TouchableOpacity>
         </ScrollView>
       </Root>

@@ -81,8 +81,42 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color:'white'
     },
+    getPicture:{
+        borderWidth:1,
+        borderColor: '#15B025',
+        borderStyle: 'dashed',
+        width: '90%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        borderRadius: 20,
+        paddingVertical: 10,
+        marginBottom: 10
+    },
     plus:{
-        
+        color:'#15B025'
+    },
+    cadastrar:{
+        backgroundColor:'#08D88D'
+    },
+    images:{
+        backgroundColor:'#F0F0F0',
+        borderColor:'gray',
+        borderWidth:1,
+        width: '90%',
+        alignItems: 'center',
+        alignSelf: 'center',
+        flexDirection:'row',
+        padding:10,
+        borderRadius: 20,
+        marginBottom:10
+    },
+    image:{
+        width: width/4,
+        height: width/4,
+        backgroundColor:'gray',
+        borderRadius: 20,
+        marginRight:10,
     }
 })
 
