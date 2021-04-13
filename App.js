@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 import {StatusBar} from 'react-native'
 import Main from './src/pages/Main';
-import Form from './src/pages/Form';
+import ImovelForm from './src/pages/Form';
 import {PostProvider} from './src/context/PostsContext'
 
 const Stack = createStackNavigator()
@@ -15,7 +15,7 @@ function App(){
       <StatusBar backgroundColor='#08D88D' barStyle="dark-content"/>
       <Stack.Navigator>
         <Stack.Screen name="main" component={Main} options={{headerShown: false}}/>
-        <Stack.Screen name="form" component={Form} options={{
+        <Stack.Screen name="form" component={ImovelForm} options={{
           title:"Cadastrar novo imóvel",
           headerStyle: {
             backgroundColor: '#08D88D',

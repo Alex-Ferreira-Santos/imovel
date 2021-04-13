@@ -1,15 +1,20 @@
 import React,{createContext,useState} from 'react';
 
-export const Post = createContext({})
+export const PostContext = createContext({})
 
-export function PostProvider(){
+export function PostProvider(props){
     const [post,setPost] = useState([ ])
 
+    function newPost(object){
+        setPost([...post,object])
+    }
+
     return(
-        <Post.Provider value={
-            post
+        <PostContext.Provider value={
+            post,
+            newPost
         }>
-            {children}
-        </Post.Provider>
+            {props.children}
+        </PostContext.Provider>
     )
 }

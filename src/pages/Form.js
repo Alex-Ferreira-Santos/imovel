@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component,useContext } from 'react';
 import {TextInput,ScrollView,TouchableOpacity,Image} from 'react-native'
-import {Root,Text,Form,Picker,Radio,ListItem } from 'native-base';
+import {Root,Text,Form,Picker,Radio,ListItem, Thumbnail } from 'native-base';
 import {View} from 'react-native'
 import styles from '../styles/form'
 import states from '../../Estados.json'
 import cities from '../../Cidades.json'
-export default class GeneralExample extends Component {
+import {PostContext} from '../context/PostsContext'
+
+export default class ImovelForm extends Component {
 
   constructor(props) {
     super(props)
@@ -23,8 +25,11 @@ export default class GeneralExample extends Component {
       apartSelected: false,
       commerceSelected: false,
       image: [],
+      context: ''
     }
+    
   }
+  //descrobir como pegar context
 
   filterCities(id){
     const cidades = cities.filter( city => city.Estado == id)
@@ -39,6 +44,7 @@ export default class GeneralExample extends Component {
   }
 
   render() {
+    
     return (
       <Root>
         <ScrollView style={{backgroundColor:'white'}}>
