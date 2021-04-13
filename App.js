@@ -4,12 +4,14 @@ import {createStackNavigator} from '@react-navigation/stack'
 import {StatusBar} from 'react-native'
 import Main from './src/pages/Main';
 import Form from './src/pages/Form';
+import {PostProvider} from './src/context/PostsContext'
 
 const Stack = createStackNavigator()
 
 function App(){
   return (
-    <NavigationContainer>
+    <PostProvider>
+    <NavigationContainer> 
       <StatusBar backgroundColor='#08D88D' barStyle="dark-content"/>
       <Stack.Navigator>
         <Stack.Screen name="main" component={Main} options={{headerShown: false}}/>
@@ -21,6 +23,7 @@ function App(){
         }}/>
       </Stack.Navigator>
     </NavigationContainer>
+    </PostProvider>
   );
 };
 
