@@ -6,11 +6,12 @@ const styles = StyleSheet.create({
     container: {
         flexDirection:'row',
         width: '95%',
-        marginVertical: 10,
+        marginVertical: 5,
         borderRadius: 20,
         borderColor: '#15B025',
         borderWidth: 1,
         alignItems: 'center',
+        backgroundColor:'#ffffff',
     },
     image:{
         width: width/3.5,
@@ -31,6 +32,12 @@ const styles = StyleSheet.create({
         color: '#898989',
         fontSize: width/22,
     },
+    touch:{
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 20,     
+    }
 })
 
 export default styles

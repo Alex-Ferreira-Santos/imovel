@@ -1,9 +1,10 @@
 import React from 'react';
-import {View,Text,Image} from 'react-native'
+import {View,Text,Image,TouchableNativeFeedback} from 'react-native'
 import styles from '../styles/imovel'
 
-function Imovel() {
+function Imovel(props) {
   return(
+    <TouchableNativeFeedback style={styles.touch} >
       <View style={styles.container}>
             <Image style={styles.image}/>
             <View style={styles.data}>
@@ -13,6 +14,7 @@ function Imovel() {
               <Text style={styles.localType}>Rio de Janeiro, RJ</Text>
             </View>       
       </View>
+    </TouchableNativeFeedback>
   );
 }
 

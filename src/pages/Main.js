@@ -8,7 +8,7 @@ function Main(props){
         <View style={{flex:1}}>
             <Text style={styles.title}>Imoveis Disponiveis</Text>
             <ScrollView contentContainerStyle={styles.container}>
-                <Imovel/>
+                <Imovel />
                 <Imovel/>
                 <Imovel/>
             </ScrollView>
