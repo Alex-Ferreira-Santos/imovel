@@ -1,4 +1,4 @@
-import React, { Component,useContext } from 'react';
+import React, { Component,useContext,useState } from 'react';
 import {TextInput,ScrollView,TouchableOpacity,Image} from 'react-native'
 import {Root,Text,Form,Picker,Radio,ListItem, Thumbnail } from 'native-base';
 import {View} from 'react-native'
@@ -7,44 +7,37 @@ import states from '../../Estados.json'
 import cities from '../../Cidades.json'
 import {PostContext} from '../context/PostsContext'
 
-export default class ImovelForm extends Component {
+export default function ImovelForm(props){
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      buttonAvailable: false,
-      state: '',
-      city:'',
-      cities: [],
-      enablePicker: false,
-      pickerdisabled: styles.estadoDisabled,
-      radioSelected: false,
-      finalidade: '',
-      type:'',
-      casaSelected: true,
-      apartSelected: false,
-      commerceSelected: false,
-      image: [],
-      context: ''
-    }
-    
-  }
-  //descrobir como pegar context
+  const [buttonAvailable,setButtonAvailable] = useState(false)
+  const [state,setState] = useState('')
+  const [city,setCity] = useState('')
+  const [cities,setCities] = useState([])
+  const [enablePicker,setEnablePicker] = useState(false)
+  const [pickerdisabled,setPickerdisabled] = useState(styles.estadoDisabled)
+  const [radioSelected,setRadioSelected] = useState(false)
+  const [finalidade,setFinalidade] = useState('')
+  const [type,setType] = useState('')
+  const [casaSelected,setCasaSelected] = useState(true)
+  const [apartSelected,setApartSelected] = useState(false)
+  const [commerceSelected,setCommerceSelected] = useState(false)
+  const [image,setImage] = useState([])
+  const [context,setContext] = useState('')
+  
+  const {teste} = useContext(PostContext)
+  
 
-  filterCities(id){
+  function filterCities(id){
     const cidades = cities.filter( city => city.Estado == id)
     return cidades
   }
 
-  pictures(){
-    if(this.state.image.length === 5){
+  function pictures(){
+    if(image.length === 5){
       return
     }
-    this.setState({image: [...this.state.image,{id:1,nome:'test.png'}]})
-  }
-
-  render() {
-    
+    setImage([...image,{id:1,nome:'test.png'}])
+  }  
     return (
       <Root>
         <ScrollView style={{backgroundColor:'white'}}>
@@ -62,10 +55,10 @@ export default class ImovelForm extends Component {
                       <Picker 
                         style={styles.picker}
                         onValueChange={ value => {
-                          this.setState({state: value});
-                          this.setState({enablePicker: true})
-                          this.setState({pickerdisabled: ''})
-                          this.setState({cities:this.filterCities(value.id)})
+                          setState(value)
+                          setEnablePicker(true)
+                          setPickerdisabled('')
+                          setCities(filterCities(value.id))
                         }}
                       >
                         <Picker.Item label="Selecione um estado" value=""/>
@@ -77,13 +70,13 @@ export default class ImovelForm extends Component {
                 </View>
                 <View>
                   <Text style={styles.label}>Cidade</Text> 
-                  <View style={[styles.estado,this.state.pickerdisabled]}>         
+                  <View style={[styles.estado,pickerdisabled]}>         
                       <Picker 
-                        style={[styles.picker,this.state.pickerdisabled]}
-                        enabled={this.state.enablePicker}           
+                        style={[styles.picker,pickerdisabled]}
+                        enabled={enablePicker}           
                       >
                         <Picker.Item label="Selecione uma cidade" value=""/>
-                        {this.state.cities.map( city => (
+                        {cities.map( city => (
                           <Picker.Item label={city.Nome} key={city.Nome} value={city.Nome}/>
                         ))}
                       </Picker>
@@ -106,17 +99,17 @@ export default class ImovelForm extends Component {
                 <Text style={styles.label}>Finalidade</Text>
                 <View style={styles.row}>
                   <ListItem style={{borderBottomWidth: 0}}>
-                      <Radio color={"#15B025"} selectedColor={"#5cb85c"} selected={!this.state.radioSelected} onPress={()=>{
-                        this.setState({radioSelected:!this.state.radioSelected})
-                        this.setState({finalidade:'Vender'})
+                      <Radio color={"#15B025"} selectedColor={"#5cb85c"} selected={!radioSelected} onPress={()=>{
+                        setRadioSelected(!radioSelected)
+                        setFinalidade('vender')
                       }}/>
                       <Text style={styles.radioLabel}>Vender</Text>
                   </ListItem>
                   <ListItem style={{borderBottomWidth: 0}}>
                     <Radio color={"#15B025"} selectedColor={"#5cb85c"} onPress={()=>{
-                      this.setState({radioSelected:!this.state.radioSelected})
-                      this.setState({finalidade:'Alugar'})
-                    }} selected={this.state.radioSelected}/>
+                      setRadioSelected(!radioSelected)
+                      setFinalidade('Alugar')
+                    }} selected={radioSelected}/>
                     <Text style={styles.radioLabel}> Alugar</Text>
                   </ListItem>
                 </View>
@@ -125,29 +118,29 @@ export default class ImovelForm extends Component {
                 <Text style={styles.label}>Tipo de imóvel</Text>
                 <View style={[styles.row,styles.imovel]}>
                   <ListItem style={{borderBottomWidth: 0}}>
-                      <Radio color={"#15B025"} selectedColor={"#5cb85c"} selected={this.state.casaSelected} onPress={()=>{
-                        this.setState({casaSelected:true})
-                        this.setState({apartSelected:false})
-                        this.setState({commerceSelected:false})
-                        this.setState({type:'Casa'})
+                      <Radio color={"#15B025"} selectedColor={"#5cb85c"} selected={casaSelected} onPress={()=>{
+                        setCasaSelected(true)
+                        setApartSelected(false)
+                        setCommerceSelected(false)
+                        setType('Casa')
                       }}/>
                       <Text style={styles.radioLabel}>Casa</Text>
                   </ListItem>
                   <ListItem style={{borderBottomWidth: 0}}>
-                      <Radio color={"#15B025"} selectedColor={"#5cb85c"} selected={this.state.apartSelected} onPress={()=>{
-                        this.setState({casaSelected:false})
-                        this.setState({apartSelected:true})
-                        this.setState({commerceSelected:false})
-                        this.setState({type:'Apartamento'})
+                      <Radio color={"#15B025"} selectedColor={"#5cb85c"} selected={apartSelected} onPress={()=>{
+                        setCasaSelected(false)
+                        setApartSelected(true)
+                        setCommerceSelected(false)
+                        setType('Apartamento')
                       }}/>
                       <Text style={styles.radioLabel}>Apartamento</Text>
                   </ListItem>
                   <ListItem style={{borderBottomWidth: 0}}>
-                      <Radio color={"#15B025"} selectedColor={"#5cb85c"} selected={this.state.commerceSelected} onPress={()=>{
-                        this.setState({casaSelected:false})
-                        this.setState({apartSelected:false})
-                        this.setState({commerceSelected:true})
-                        this.setState({type:'Comércio'})
+                      <Radio color={"#15B025"} selectedColor={"#5cb85c"} selected={commerceSelected} onPress={()=>{
+                        setCasaSelected(false)
+                        setApartSelected(false)
+                        setCommerceSelected(true)
+                        setType('Comércio')
                       }}/>
                       <Text style={styles.radioLabel}>Comércio</Text>
                   </ListItem>
@@ -160,7 +153,7 @@ export default class ImovelForm extends Component {
               <Text style={styles.buttonText}>Tirar foto</Text>
             </TouchableOpacity>
             <View>
-                {this.state.image.map(image => (
+                {image.map(image => (
                   <View style={styles.images} key={image.id}>
                     <Image style={styles.image}/>
                     <View>
@@ -170,18 +163,19 @@ export default class ImovelForm extends Component {
                   </View>
                 ))}
             </View>
-            {this.state.image.length < 5 && (
-              <TouchableOpacity style={styles.getPicture} onPress={()=>this.pictures()}>
+            {image.length < 5 && (
+              <TouchableOpacity style={styles.getPicture} onPress={()=>pictures()}>
               <Text style={styles.plus}>+</Text>
               </TouchableOpacity>
             )}
             
             <View style={styles.line}/>
-            <TouchableOpacity style={[styles.takePicture,styles.cadastrar]}>
+            <TouchableOpacity style={[styles.takePicture,styles.cadastrar]} onPress={()=>{
+              
+            }}>
               <Text style={{fontSize: 20}}>Cadastrar</Text>
             </TouchableOpacity>
         </ScrollView>
       </Root>
     );
-  }
 }

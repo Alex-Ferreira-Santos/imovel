@@ -8,11 +8,15 @@ export function PostProvider(props){
     function newPost(object){
         setPost([...post,object])
     }
+    function teste(){
+        console.log('teste')
+    }
 
     return(
         <PostContext.Provider value={
             post,
-            newPost
+            newPost,
+            teste
         }>
             {props.children}
         </PostContext.Provider>
