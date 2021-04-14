@@ -5,6 +5,7 @@ import {StatusBar} from 'react-native'
 import Main from './src/pages/Main';
 import ImovelForm from './src/pages/Form';
 import {PostProvider} from './src/context/PostsContext'
+import Picture from './src/pages/Picture';
 
 const Stack = createStackNavigator()
 
@@ -21,6 +22,7 @@ function App(){
             backgroundColor: '#08D88D',
           }
         }}/>
+        <Stack.Screen name="picture" component={Picture} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
     </PostProvider>

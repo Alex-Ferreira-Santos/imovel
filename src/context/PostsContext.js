@@ -3,21 +3,22 @@ import React,{createContext,useState} from 'react';
 export const PostContext = createContext({})
 
 export function PostProvider(props){
-    const [post,setPost] = useState([ ])
+    const [post,setPost] = useState([])
+    const [image,setImage] = useState([])
 
     function newPost(object){
         setPost([...post,object])
-    }
-    function teste(){
-        console.log('teste')
+        console.log(post)
     }
 
+
     return(
-        <PostContext.Provider value={
+        <PostContext.Provider value={{
             post,
             newPost,
-            teste
-        }>
+            image,
+            setImage
+        }}>
             {props.children}
         </PostContext.Provider>
     )

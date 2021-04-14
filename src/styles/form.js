@@ -45,9 +45,10 @@ const styles = StyleSheet.create({
     },
     description:{
         height: 100,
-        paddingBottom: 65
+        paddingRight: 10,
+        textAlignVertical: 'top'
     },
-    picker:{
+    picker:{ 
         backgroundColor: '#F0F0F0',
         width: width/2,
         color: '#6C94A0',  

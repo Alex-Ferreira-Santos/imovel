@@ -1,6 +1,6 @@
 import React, { Component,useContext,useState } from 'react';
 import {TextInput,ScrollView,TouchableOpacity,Image} from 'react-native'
-import {Root,Text,Form,Picker,Radio,ListItem, Thumbnail } from 'native-base';
+import {Root,Text,Form,Picker,Radio,ListItem} from 'native-base';
 import {View} from 'react-native'
 import styles from '../styles/form'
 import states from '../../Estados.json'
@@ -9,23 +9,22 @@ import {PostContext} from '../context/PostsContext'
 
 export default function ImovelForm(props){
 
-  const [buttonAvailable,setButtonAvailable] = useState(false)
   const [state,setState] = useState('')
-  const [city,setCity] = useState('')
-  const [cities,setCities] = useState([])
+  const [title,setTitle] = useState('')
+  const [adress,setAdress] = useState('')
+  const [cidades,setCidades] = useState([])
+  const [description,setDescription] = useState('')
+  const [price,setPrice] = useState('')
   const [enablePicker,setEnablePicker] = useState(false)
   const [pickerdisabled,setPickerdisabled] = useState(styles.estadoDisabled)
   const [radioSelected,setRadioSelected] = useState(false)
-  const [finalidade,setFinalidade] = useState('')
-  const [type,setType] = useState('')
+  const [finalidade,setFinalidade] = useState('Vender')
+  const [type,setType] = useState('Casa')
   const [casaSelected,setCasaSelected] = useState(true)
   const [apartSelected,setApartSelected] = useState(false)
   const [commerceSelected,setCommerceSelected] = useState(false)
-  const [image,setImage] = useState([])
-  const [context,setContext] = useState('')
   
-  const {teste} = useContext(PostContext)
-  
+  const {newPost,image,setImage} = useContext(PostContext)
 
   function filterCities(id){
     const cidades = cities.filter( city => city.Estado == id)
@@ -46,7 +45,9 @@ export default function ImovelForm(props){
             <Form style={styles.form}>
               <View>
                 <Text style={styles.label}>Título</Text>
-                <TextInput placeholder="Digite o título aqui" style={styles.input} placeholderTextColor="#6C94A0"/>
+                <TextInput placeholder="Digite o título aqui" style={styles.input} placeholderTextColor="#6C94A0" onChangeText={value=>{
+                  setTitle(value)
+                }}/>
               </View>
               <View style={styles.row}>
                 <View>
@@ -55,10 +56,10 @@ export default function ImovelForm(props){
                       <Picker 
                         style={styles.picker}
                         onValueChange={ value => {
-                          setState(value)
+                          setState(value.name)
                           setEnablePicker(true)
                           setPickerdisabled('')
-                          setCities(filterCities(value.id))
+                          setCidades(filterCities(value.id))
                         }}
                       >
                         <Picker.Item label="Selecione um estado" value=""/>
@@ -73,7 +74,10 @@ export default function ImovelForm(props){
                   <View style={[styles.estado,pickerdisabled]}>         
                       <Picker 
                         style={[styles.picker,pickerdisabled]}
-                        enabled={enablePicker}           
+                        enabled={enablePicker}
+                        onPress={value=>{
+                          setCidades(value)
+                        }}          
                       >
                         <Picker.Item label="Selecione uma cidade" value=""/>
                         {cities.map( city => (
@@ -85,15 +89,15 @@ export default function ImovelForm(props){
               </View>
               <View>
                 <Text style={styles.label}>Endereço</Text>
-                <TextInput placeholder="Digite o endereço aqui" style={styles.input} placeholderTextColor="#6C94A0"/>
+                <TextInput placeholder="Digite o endereço aqui" style={styles.input} placeholderTextColor="#6C94A0" onChangeText={val=>setAdress(val)}/>
               </View>
               <View>
                 <Text style={styles.label}>Descrição</Text>
-                <TextInput placeholder="Digite a descrição aqui aqui" style={[styles.input,styles.description]} placeholderTextColor="#6C94A0"/>
+                <TextInput placeholder="Digite a descrição aqui aqui" style={[styles.input,styles.description]} placeholderTextColor="#6C94A0" onChangeText={val=>setDescription(val)} multiline={true}/>
               </View>
               <View>
                 <Text style={styles.label}>Preço</Text>
-                <TextInput placeholder="Digite o preço aqui" style={styles.input} placeholderTextColor="#6C94A0"/>
+                <TextInput placeholder="Digite o preço aqui" style={styles.input} placeholderTextColor="#6C94A0" onChangeText={val=>setPrice(val)} keyboardType="numeric"/>
               </View>
               <View style={{width:'90%'}}>
                 <Text style={styles.label}>Finalidade</Text>
@@ -149,7 +153,7 @@ export default function ImovelForm(props){
             </Form>
             <View style={styles.line}/>
             <Text style={styles.dados}>Imagens</Text>
-            <TouchableOpacity style={styles.takePicture}>
+            <TouchableOpacity style={styles.takePicture} onPress={()=>props.navigation.navigate('picture')}>
               <Text style={styles.buttonText}>Tirar foto</Text>
             </TouchableOpacity>
             <View>
@@ -171,7 +175,9 @@ export default function ImovelForm(props){
             
             <View style={styles.line}/>
             <TouchableOpacity style={[styles.takePicture,styles.cadastrar]} onPress={()=>{
-              
+              newPost({
+                title, state, cidades, adress, description, price, finalidade, type,image
+              })
             }}>
               <Text style={{fontSize: 20}}>Cadastrar</Text>
             </TouchableOpacity>
