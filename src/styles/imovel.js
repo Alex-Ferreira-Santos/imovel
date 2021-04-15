@@ -20,9 +20,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#c4c4c4',
         borderRadius: 20
     },
+    data:{
+        flex:1
+    },
     title:{
         fontSize: width/20,
-        maxWidth: 280,
     },
     price:{
         fontSize: width/18,
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
     },
     localType:{
         color: '#898989',
-        fontSize: width/22,
+        fontSize: width/23,
     },
     touch:{
         width: '100%',

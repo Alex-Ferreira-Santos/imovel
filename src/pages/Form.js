@@ -29,7 +29,7 @@ export default function ImovelForm(props){
 
   function filterCities(id){
     const cidades = cities.filter( city => city.Estado == id)
-    setCity(cidades[0])
+    setCity(cidades[0].Nome)
     return cidades
   }
 
@@ -42,7 +42,7 @@ export default function ImovelForm(props){
     return (
       <Root>
         <ScrollView style={{backgroundColor:'white'}}>
-            <Text style={styles.dados}>Dados</Text>
+            <Text style={styles.dados}>Dados</Text> 
             <View style={styles.line}/>
             <Form style={styles.form}>
               <View>
@@ -99,7 +99,7 @@ export default function ImovelForm(props){
               </View>
               <View>
                 <Text style={styles.label}>Preço</Text>
-                <TextInput placeholder="Digite o preço aqui" style={styles.input} placeholderTextColor="#6C94A0" onChangeText={val=>setPrice(val)} keyboardType="numeric"/>
+                <TextInput placeholder="Digite o preço aqui" style={styles.input} placeholderTextColor="#6C94A0" onChangeText={val=>setPrice(Number(val))} keyboardType="numeric"/>
               </View>
               <View style={{width:'90%'}}>
                 <Text style={styles.label}>Finalidade</Text>
@@ -177,9 +177,16 @@ export default function ImovelForm(props){
             
             <View style={styles.line}/>
             <TouchableOpacity style={[styles.takePicture,styles.cadastrar]} onPress={()=>{
-              newPost({
+              if([state,city,title,adress,description,price].includes('')){
+                alert('Preencha todos os campos para cadastrar um imóvel')
+                return
+              }else{
+                newPost({
                 id:posts.length+1,title, state, city, adress, description, price, finalidade, type,image
-              })
+                })
+                props.navigation.navigate('details')
+              }
+              
             }}>
               <Text style={{fontSize: 20}}>Cadastrar</Text>
             </TouchableOpacity>
