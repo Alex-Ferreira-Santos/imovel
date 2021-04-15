@@ -12,6 +12,7 @@ export default function ImovelForm(props){
   const [state,setState] = useState('')
   const [title,setTitle] = useState('')
   const [adress,setAdress] = useState('')
+  const [city,setCity] = useState('')
   const [cidades,setCidades] = useState([])
   const [description,setDescription] = useState('')
   const [price,setPrice] = useState('')
@@ -24,10 +25,11 @@ export default function ImovelForm(props){
   const [apartSelected,setApartSelected] = useState(false)
   const [commerceSelected,setCommerceSelected] = useState(false)
   
-  const {newPost,image,setImage} = useContext(PostContext)
+  const {newPost,image,setImage,posts} = useContext(PostContext)
 
   function filterCities(id){
     const cidades = cities.filter( city => city.Estado == id)
+    setCity(cidades[0])
     return cidades
   }
 
@@ -76,11 +78,11 @@ export default function ImovelForm(props){
                         style={[styles.picker,pickerdisabled]}
                         enabled={enablePicker}
                         onPress={value=>{
-                          setCidades(value)
+                          setCity(value)
                         }}          
                       >
                         <Picker.Item label="Selecione uma cidade" value=""/>
-                        {cities.map( city => (
+                        {cidades.map( city => (
                           <Picker.Item label={city.Nome} key={city.Nome} value={city.Nome}/>
                         ))}
                       </Picker>
@@ -176,7 +178,7 @@ export default function ImovelForm(props){
             <View style={styles.line}/>
             <TouchableOpacity style={[styles.takePicture,styles.cadastrar]} onPress={()=>{
               newPost({
-                title, state, cidades, adress, description, price, finalidade, type,image
+                id:posts.length+1,title, state, city, adress, description, price, finalidade, type,image
               })
             }}>
               <Text style={{fontSize: 20}}>Cadastrar</Text>
