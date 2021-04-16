@@ -14,6 +14,8 @@ export function PostProvider(props){
 
     function newPost(object){
         setPosts([...posts,object])
+        setImage([])
+        setCount(1)
     }
 
     function addImage(uri){

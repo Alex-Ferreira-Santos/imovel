@@ -185,12 +185,12 @@ export default function ImovelForm(props){
                 alert('Preencha todos os campos para cadastrar um imóvel')
                 return
               }else{
+
                 newPost({
                 id:posts.length+1,title, state, city, adress, description, price, finalidade, type,image
                 })
-                props.navigation.navigate('details')
+                props.navigation.navigate('details',{title, price, type, finalidade,state, city, adress, description,image})
               }
-              
             }}>
               <Text style={{fontSize: 20}}>Cadastrar</Text>
             </TouchableOpacity>
@@ -198,3 +198,13 @@ export default function ImovelForm(props){
       </Root>
     );
 }
+
+
+
+
+
+
+
+
+
+// tem que mudar a cor do itemPicker

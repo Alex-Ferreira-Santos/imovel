@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         textAlignVertical: 'top'
     },
     picker:{ 
-        backgroundColor: '#F0F0F0',
+        backgroundColor: 'white',
         width: width/2,
         color: '#6C94A0',  
     },

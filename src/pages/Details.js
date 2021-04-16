@@ -1,4 +1,4 @@
-import React,{useContext,useState} from 'react';
+import React,{useState} from 'react';
 import {View,Image,Text,ScrollView,Dimensions} from 'react-native'
 import Carousel from 'react-native-snap-carousel'
 import styles from '../styles/details'
@@ -7,13 +7,12 @@ function Details(props){
     const params = props.route.params
     const width = Dimensions.get('screen').width
     const [activeIndex,setActiveIndex] = useState(0)
-    const [carouselItems,setCarouselItems] = useState([
-        {},{},
-    ])
-    const renderItem = () => {
+    console.log(params)
+    const renderItem = (image) => {
+        console.log(image)
         return (
             <View style={styles.item}>
-              <Image source={{uri:'https://www.galeriadaarquitetura.com.br/Img/projeto/702x415/5651/casa-113917.jpg'}} style={styles.image}/>
+              <Image source={{uri:image.item.uri}} style={styles.image}/>
             </View>
         );
     }
@@ -21,7 +20,7 @@ function Details(props){
         <View style={styles.container}>
             <Carousel
                 layout={"default"}
-                data={carouselItems}
+                data={params.image}
                 sliderWidth={width}
                 itemWidth={width}
                 renderItem={renderItem}

@@ -11,7 +11,7 @@ function Main(props){
             <Text style={styles.title}>Imoveis Disponiveis</Text>
             <ScrollView contentContainerStyle={styles.container}>
                 {posts.map(post=>(
-                    <Imovel key={post.id} title={post.title} price={post.price} type={post.type} finalidade={post.finalidade} state={post.state} city={post.city} route={()=>props.navigation.navigate('details',{title: post.title, price: post.price, type: post.type, finalidade: post.finalidade,state: post.state, city: post.city, adress: post.adress, description: post.description})}/>
+                    <Imovel key={post.id} title={post.title} price={post.price} type={post.type} finalidade={post.finalidade} state={post.state} city={post.city} route={()=>props.navigation.navigate('details',{title: post.title, price: post.price, type: post.type, finalidade: post.finalidade,state: post.state, city: post.city, adress: post.adress, description: post.description,image:post.image})}/>
                 ))}
             </ScrollView>
             <View style={styles.footer}>
