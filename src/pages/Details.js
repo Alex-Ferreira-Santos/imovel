@@ -33,11 +33,11 @@ function Details(props){
                 <Text style={styles.price}>R${params.price.toFixed(2)}</Text>
                 <View style={styles.line}/>
                 <Text style={styles.section}>Endereço</Text>
-                <Text style={styles.text}>Rua a, 70º</Text>
-                <Text style={styles.text}>Rio de Janeiro, Volta Redonda</Text>
+                <Text style={styles.text}>{params.adress}</Text>
+                <Text style={styles.text}>{params.state}, {params.city}</Text>
                 <View style={styles.line}/>
                 <Text style={styles.section}>Descrição</Text>
-                <Text style={styles.text}>lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem</Text>
+                <Text style={styles.text}>{params.description}</Text>
             </ScrollView>
         </View>
     )
