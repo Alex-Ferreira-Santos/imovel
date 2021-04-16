@@ -161,10 +161,9 @@ export default function ImovelForm(props){
             <View>
                 {image.map(image => (
                   <View style={styles.images} key={image.id}>
-                    <Image style={styles.image}/>
+                    <Image source={{uri:image.uri}} style={styles.image}/>
                     <View>
-                      <Text>{image.id}</Text>
-                      <Text>{image.nome}</Text>
+                      <Text style={{fontSize: 20}}>{image.nome}</Text>
                     </View>
                   </View>
                 ))}

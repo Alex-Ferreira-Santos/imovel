@@ -1,16 +1,20 @@
-import React,{useState} from 'react';
+import React,{useState,useContext} from 'react';
 import {View,Text,TouchableOpacity,StatusBar,Image} from 'react-native'
 import {RNCamera} from 'react-native-camera'
+import { PostContext } from '../context/PostsContext';
 import styles from '../styles/pictures'
 
 function Picture(){
     let camera
-    const [image,setImage] = useState('')
+    const {addImage} = useContext(PostContext)
+    const [imageUri,setImageUri] = useState('')
+    const [show,setShow] = useState(false)
     async function takePicture(){
         if(camera){
             const options = {base64:true}
             const data = await camera.takePictureAsync(options)
-            setImage(data.uri)
+            setImageUri(data.uri)
+            setShow(true)
         }
     }
     return(
@@ -34,7 +38,24 @@ function Picture(){
                     <Text>Tirar foto</Text>
                 </TouchableOpacity>
             </View>
-            <Image uri={image} style={{width: 100, height: 100}}/>
+            {show &&(
+                <View style={styles.fullImage}>
+                    <Image source={{uri: imageUri}} style={styles.fullScreen}/>
+                    <View style={styles.buttons}>
+                        <TouchableOpacity style={styles.remove} onPress={()=>setShow(false)}>
+                            <Text style={styles.buttonText}>Remover</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.confirm} onPress={()=>{
+                            addImage(imageUri)
+                            setShow(false)
+                            alert('imagem adicionada')
+                        }}>
+                            <Text style={styles.buttonText}>Adicionar</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            )} 
+            
         </View>
     )
 }
