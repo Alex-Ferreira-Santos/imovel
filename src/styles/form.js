@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
         padding: 0,
         height: 46,
         paddingLeft: 10,
-        fontSize: 18,  
+        fontSize: 18, 
+        color: 'black' 
     },
     estado:{
         borderColor:'#15B025',
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     imovel:{
-        right: 20,
+        justifyContent: 'space-evenly'
     },
     takePicture:{
         backgroundColor:'#39B137',
@@ -118,6 +119,17 @@ const styles = StyleSheet.create({
         backgroundColor:'gray',
         borderRadius: 20,
         marginRight:10,
+    },
+    imageData:{
+        flex:1,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+    remove:{
+        backgroundColor: '#B73535',
+        padding: 10,
+        borderRadius: 20,
     }
 })
 

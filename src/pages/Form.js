@@ -25,7 +25,7 @@ export default function ImovelForm(props){
   const [apartSelected,setApartSelected] = useState(false)
   const [commerceSelected,setCommerceSelected] = useState(false)
   
-  const {newPost,image,setImage,posts} = useContext(PostContext)
+  const {newPost,image,setImage,posts,removeImage} = useContext(PostContext)
 
   function filterCities(id){
     const cidades = cities.filter( city => city.Estado == id)
@@ -159,18 +159,23 @@ export default function ImovelForm(props){
               <Text style={styles.buttonText}>Tirar foto</Text>
             </TouchableOpacity>
             <View>
-                {image.map(image => (
-                  <View style={styles.images} key={image.id}>
-                    <Image source={{uri:image.uri}} style={styles.image}/>
-                    <View>
-                      <Text style={{fontSize: 20}}>{image.nome}</Text>
+                {image.map(imagem => (
+                  <View style={styles.images} key={imagem.id}>
+                    <Image source={{uri:imagem.uri}} style={styles.image}/>
+                    <View style={styles.imageData}>
+                      <Text style={{fontSize: 20}}>{imagem.nome}</Text>
+                      <TouchableOpacity style={styles.remove} onPress={()=>{
+                        removeImage(imagem.id)
+                      }}>
+                        <Text style={{color:'white'}}>Remover</Text>
+                      </TouchableOpacity>
                     </View>
                   </View>
                 ))}
             </View>
             {image.length < 5 && (
               <TouchableOpacity style={styles.getPicture} onPress={()=>pictures()}>
-              <Text style={styles.plus}>+</Text>
+                <Text style={styles.plus}>+</Text>
               </TouchableOpacity>
             )}
             

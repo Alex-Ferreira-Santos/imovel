@@ -9,6 +9,7 @@ export function PostProvider(props){
         {id:2,title:'Apartamento 2 quartos para alugar',price:1200,city:'Niterói',state:'Rio de Janeiro',finalidade:'Aluguel',type:'Apartamento',adress:'Rua b, 60',description:'Apartamento para aluguel com 2 quartos, 1 banehiro'},
         {id:3,title:'Loja de óculos a venda',price:500000,city:'Volta Redonda',state:'Rio de Janeiro',finalidade:'Venda',type:'Comércio', adress:'Rua c, 40',description:'Loja de óculos a venda, o local tem por volta de 80m quadrados com 2 salas'},
     ])
+    const [count,setCount] = useState(1)
     
 
     function newPost(object){
@@ -16,9 +17,15 @@ export function PostProvider(props){
     }
 
     function addImage(uri){
-        setImage([...image,{id:image.length+1,nome:`imagem ${image.length+1}`,uri:uri}])
-        console.log(image)
+        setImage([...image,{id:count,nome:`imagem ${count}`,uri:uri}])
+        setCount(count+1)
     }
+
+    function removeImage(id){
+        const position = image.findIndex(image => image.id === id)
+        image.splice(position,1)
+        setImage([...image])
+    } 
 
 
     return(
@@ -26,7 +33,9 @@ export function PostProvider(props){
             posts,
             newPost,
             addImage,
-            image
+            image,
+            removeImage,
+            setImage
         }}>
             {props.children}
         </PostContext.Provider>

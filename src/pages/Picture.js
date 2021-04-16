@@ -4,7 +4,7 @@ import {RNCamera} from 'react-native-camera'
 import { PostContext } from '../context/PostsContext';
 import styles from '../styles/pictures'
 
-function Picture(){
+function Picture(props){
     let camera
     const {addImage} = useContext(PostContext)
     const [imageUri,setImageUri] = useState('')
@@ -33,7 +33,7 @@ function Picture(){
                     buttonNegative: 'Cancelar',
                 }}
             />
-            <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center',backgroundColor:'gray' }}>
+            <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center'}}>
                 <TouchableOpacity style={styles.capture} onPress={()=>{takePicture()}}>
                     <Text>Tirar foto</Text>
                 </TouchableOpacity>
@@ -47,7 +47,7 @@ function Picture(){
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.confirm} onPress={()=>{
                             addImage(imageUri)
-                            setShow(false)
+                            props.navigation.navigate('form')
                             alert('imagem adicionada')
                         }}>
                             <Text style={styles.buttonText}>Adicionar</Text>
