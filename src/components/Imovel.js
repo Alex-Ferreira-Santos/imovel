@@ -3,6 +3,10 @@ import {View,Text,Image,TouchableNativeFeedback} from 'react-native'
 import styles from '../styles/imovel'
 
 function Imovel(props) {
+  console.log(props.image)
+  if(props.image){
+    
+  }
   return(
     <TouchableNativeFeedback style={styles.touch} onPress={()=>props.route()}>
       <View style={styles.container}>

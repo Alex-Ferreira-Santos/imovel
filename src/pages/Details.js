@@ -7,9 +7,15 @@ function Details(props){
     const params = props.route.params
     const width = Dimensions.get('screen').width
     const [activeIndex,setActiveIndex] = useState(0)
-    console.log(params)
     const renderItem = (image) => {
         console.log(image)
+        if(image.item.id === undefined){
+            return(
+                <View style={styles.item}>
+                    <Image source={image.item.uri} style={styles.image}/>
+                </View>
+            ) 
+        }
         return (
             <View style={styles.item}>
               <Image source={{uri:image.item.uri}} style={styles.image}/>
