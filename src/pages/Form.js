@@ -1,11 +1,12 @@
-import React, { Component,useContext,useState } from 'react';
-import {TextInput,ScrollView,TouchableOpacity,Image} from 'react-native'
+import React, {useContext,useState} from 'react';
+import {TextInput,ScrollView,TouchableOpacity,Image,PermissionsAndroid,Platform} from 'react-native'
 import {Root,Text,Form,Picker,Radio,ListItem} from 'native-base';
 import {View} from 'react-native'
 import styles from '../styles/form'
 import states from '../../Estados.json'
 import cities from '../../Cidades.json'
 import {PostContext} from '../context/PostsContext'
+import CameraRoll from '@react-native-community/cameraroll'
 
 export default function ImovelForm(props){
 
@@ -25,7 +26,7 @@ export default function ImovelForm(props){
   const [apartSelected,setApartSelected] = useState(false)
   const [commerceSelected,setCommerceSelected] = useState(false)
   
-  const {newPost,image,setImage,posts,removeImage} = useContext(PostContext)
+  const {newPost,image,addImage,posts,removeImage} = useContext(PostContext)
 
   function filterCities(id){
     const cidades = cities.filter( city => city.Estado == id)
@@ -33,12 +34,36 @@ export default function ImovelForm(props){
     return cidades
   }
 
-  function pictures(){
-    if(image.length === 5){
-      return
+  async function hasAndroidPermission() {
+    const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
+  
+    const hasPermission = await PermissionsAndroid.check(permission);
+    if (hasPermission) {
+      return true;
     }
-    setImage([...image,{id:1,nome:'test.png'}])
-  }  
+  
+    const status = await PermissionsAndroid.request(permission);
+    return status === 'granted';
+  }
+  
+  async function getPictures() {
+    if (Platform.OS === "android" && !(await hasAndroidPermission())) {
+      return;
+    }
+    CameraRoll.getPhotos({
+      first: 20,
+      assetType: 'Photos',
+    })
+    .then(r => {
+      //addImage(r.edges[0].node.image.uri);
+      console.log(r.edges)
+    })
+    .catch((err) => {
+      console.log(err)
+       //Error Loading Images
+    });
+  };
+
     return (
       <Root>
         <ScrollView style={{backgroundColor:'white'}}>
@@ -174,7 +199,7 @@ export default function ImovelForm(props){
                 ))}
             </View>
             {image.length < 5 && (
-              <TouchableOpacity style={styles.getPicture} onPress={()=>pictures()}>
+              <TouchableOpacity style={styles.getPicture} onPress={()=>getPictures()}>
                 <Text style={styles.plus}>+</Text>
               </TouchableOpacity>
             )}
@@ -198,13 +223,3 @@ export default function ImovelForm(props){
       </Root>
     );
 }
-
-
-
-
-
-
-
-
-
-// tem que mudar a cor do itemPicker
