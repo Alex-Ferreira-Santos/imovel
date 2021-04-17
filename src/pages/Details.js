@@ -8,7 +8,6 @@ function Details(props){
     const width = Dimensions.get('screen').width
     const [activeIndex,setActiveIndex] = useState(0)
     const renderItem = (image) => {
-        console.log(image)
         if(image.item.id === undefined){
             return(
                 <View style={styles.item}>

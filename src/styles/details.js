@@ -14,10 +14,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'gray'
     },
     image:{
-        flex:1
+        width:'100%',
+        height:'100%'
     },
     title:{
-        fontSize: 30,
+        fontSize: 28,
     },
     type:{
         fontSize: 25,
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
     },
     text:{
         fontSize: 20,
+        maxWidth: '98%',
     }
 })
 
