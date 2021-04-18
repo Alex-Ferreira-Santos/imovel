@@ -6,7 +6,7 @@ import styles from '../styles/form'
 import states from '../../Estados.json'
 import cities from '../../Cidades.json'
 import {PostContext} from '../context/PostsContext'
-import CameraRoll from '@react-native-community/cameraroll'
+import {launchImageLibrary} from 'react-native-image-picker'
 
 export default function ImovelForm(props){
 
@@ -50,18 +50,20 @@ export default function ImovelForm(props){
     if (Platform.OS === "android" && !(await hasAndroidPermission())) {
       return;
     }
-    CameraRoll.getPhotos({
-      first: 20,
-      assetType: 'Photos',
+    const options = {
+      title: 'Selecione uma foto',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+
+    launchImageLibrary(options,(response)=>{
+      if(response.didCancel){
+        return
+      }
+      addImage(response.uri)
     })
-    .then(r => {
-      //addImage(r.edges[0].node.image.uri);
-      console.log(r.edges)
-    })
-    .catch((err) => {
-      console.log(err)
-       //Error Loading Images
-    });
   };
 
     return (
